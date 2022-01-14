@@ -33,8 +33,7 @@ app.get('/auth/login', (req, res) => {
 
 app.get('/auth/callback', (req, res) => {
 
-  const code = req.query.code;
-  console.log(code);
+  const { code } = req.query;
   const tokenEndpoint = 'https://accounts.spotify.com/api/token'
   const payload = client_id + ":" + client_secret;
   const encodedPayload = new Buffer.from(payload).toString('base64');
@@ -52,4 +51,22 @@ app.get('/auth/callback', (req, res) => {
 
 });
 
+app.get('/refresh_token', (req, res) => {
 
+  const { refresh_token } = req.query;
+  const tokenEndpoint = 'https://accounts.spotify.com/api/token'
+  const payload = client_id + ":" + client_secret;
+  const encodedPayload = new Buffer.from(payload).toString('base64');
+  
+  fetch(tokenEndpoint, {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Basic ' + encodedPayload,
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+    body: `grant_type=refresh_token&refresh_token=${refresh_token}`
+  })
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(err => console.log(err))
+
+})
