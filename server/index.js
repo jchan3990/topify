@@ -4,7 +4,6 @@ const fetch = require('node-fetch');
 const express = require("express");
 const Parser = require("body-parser");
 const cors = require('cors');
-const querystring = require('querystring');
 
 const app = express();
 const port = 3000;
