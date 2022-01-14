@@ -4,7 +4,7 @@
   "description": "Show user's total playtime of top 10 songs",
   "main": "index.js",
   "scripts": {
-    "start": "node server/index.js",
+    "start": "nodemon server/index.js",
     "react-dev": "webpack --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -20,6 +20,7 @@
     "body-parser": "^1.19.1",
     "cors": "^2.8.5",
     "express": "^4.17.2",
+    "node-fetch": "^2.6.6",
     "path": "^0.12.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -37,6 +38,7 @@
     "babel-loader": "^8.2.3",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-polyfill": "^6.26.0",
+    "nodemon": "^2.0.15",
     "webpack": "^5.66.0",
     "webpack-cli": "^4.9.1"
   }

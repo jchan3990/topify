@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 
-// import LoginForm from './LoginForm.jsx';
-import Receipt from './Receipt.jsx';
+import Login from './Login.jsx'
 
 const App = () => {
-  const [loginForm, setLoginForm] = useState(1);
-  const [loginCreds, setLoginCreds] = useState({});
 
   return (
-    <div>
+    <div className="app">
+      <Login />
     </div>
   )
 };
