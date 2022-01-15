@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 import Home from './Home.jsx';
-import Loading from './Loading.jsx';
 import Dashboard from './Dashboard.jsx';
 
 const App = () => {
@@ -15,15 +14,13 @@ const App = () => {
         setAuth(data);
       })
       .catch(err => console.log(err))
-  }, [])
+  }, []);
 
-  if (auth === null) {
-    return <Loading />
-  }
-  if (auth) {
-    return <Dashboard auth={auth} />
-  }
-  return <Home />
+  return (
+    <div>
+    {auth ? <Dashboard /> : <Home />}
+    </div>
+  )
 };
 
 export default App;
