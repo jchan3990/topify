@@ -96,7 +96,6 @@ app.get('/refresh_token', async (req, res) => {
 app.get('/auth/current-session', (req, res) => {
 
   jwt.verify(req.session.jwt, jwt_secret, (err, decodedToken) => {
-    console.log(req.session.jwt)
     if (err || !decodedToken) {
       res.send(false);
     } else {
