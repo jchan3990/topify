@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import Home from './Home.jsx';
 import Dashboard from './Dashboard.jsx';
+import TopBar from './TopBar.jsx';
 
 const App = () => {
   const [isHome, setIsHome] = useState(1);
@@ -17,8 +18,9 @@ const App = () => {
   }, []);
 
   return (
-    <div>
-    {auth ? <Dashboard /> : <Home />}
+    <div className="App">
+      <TopBar />
+      {auth ? <Dashboard /> : <Home />}
     </div>
   )
 };
