@@ -1,0 +1,19 @@
+.top-bar {
+  background-color: #1DB954;
+  position: relative;
+  height: 55px;
+  width: 100%;
+}
+
+.title-container {
+  position: relative;
+}
+
+h1 {
+  position: relative;
+  text-align: center;
+}
+
+.button-container {
+  position: relative;
+}
