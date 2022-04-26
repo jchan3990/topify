@@ -5,7 +5,6 @@ import Dashboard from './Dashboard.jsx';
 import TopBar from './TopBar.jsx';
 
 const App = () => {
-  const [isHome, setIsHome] = useState(1);
   const [auth, setAuth] = useState(null);
 
   useEffect(() => {
@@ -19,7 +18,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <TopBar />
+      <TopBar auth={auth} />
       {auth ? <Dashboard /> : <Home />}
     </div>
   )
