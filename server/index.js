@@ -105,7 +105,7 @@ app.get('/auth/current-session', (req, res) => {
 
 });
 
-app.get('/logout', (req, res) => {
+app.get('/auth/logout', (req, res) => {
   req.session=null;
   res.redirect('/');
 });
