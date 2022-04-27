@@ -1,0 +1,68 @@
+@font-face {
+  font-family: 'GothamBold';
+  src: url('../../dist/Gotham-Font/GothamBold.ttf') format('truetype');
+}
+
+#landing-page {
+  align-items: center;
+  background: url('../../dist/landingPageBg.jpg') no-repeat center center fixed;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  position: relative;
+  width: 100%
+}
+
+#landing-page-content-container {
+  display: flex;
+  flex-direction: column;
+  height: 70%;
+  width: 90%;
+}
+
+#landing-page-text-container {
+  display: flex;
+  flex-direction: column;
+  height:70%;
+  justify-content: center;
+  width: 100%;
+}
+
+#landing-page-text {
+  color: white;
+  font-family: GothamBold;
+  font-size: 50px;
+  height: 150px;
+  line-height: 180px;
+  margin: 0 auto;
+  position: relative;
+  text-align: center;
+  width: 100%;
+}
+
+#landing-page-login-btn-container {
+  display: flex;
+  justify-content: center;
+  height: 30%;
+  width: 100%;
+
+}
+
+#login-btn {
+  background-color: #1DB954;
+  border: solid 2px black;
+  border-radius: 15px;
+  color: black;
+  font-family: GothamBold;
+  height: 50px;
+  line-height: 60px;
+  text-align: center;
+  text-decoration: none;
+  width: 200px;
+}
+
+#login-btn:hover {
+  background-color:black;
+  border: solid 2px white;
+  color: white;
+}
