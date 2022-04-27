@@ -71,7 +71,7 @@ app.get('/auth/callback', async (req, res) => {
     };
 
     req.session.jwt = jwt.sign(sessionJWTObject, jwt_secret)
-    return res.redirect('/');
+    return res.redirect('/dashboard');
 
 });
 
