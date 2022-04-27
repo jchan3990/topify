@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import Home from './Home.jsx';
-import Dashboard from './Dashboard.jsx';
-import TopBar from './TopBar.jsx';
+import LandingPage from './LandingPage.jsx';
 
 const App = () => {
   const [auth, setAuth] = useState(null);
@@ -18,8 +16,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <TopBar auth={auth} />
-      {auth ? <Dashboard /> : <Home />}
+      {auth ? <Dashboard /> : <LandingPage />}
     </div>
   )
 };
