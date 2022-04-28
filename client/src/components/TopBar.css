@@ -1,0 +1,23 @@
+@font-face {
+  font-family: 'GothamBold';
+  src: url('../../dist/Gotham-Font/GothamBold.ttf') format('truetype');
+}
+
+#top-bar-container {
+  /* background: rgb(22, 53, 88); */
+  background: black;
+  display: flex;
+  height: 5%;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.top-bar-content {
+  color: white;
+  font-family: GothamBold;
+  font-size: 12px;
+  height: 100%;
+  line-height: 55px;
+  text-align: center;
+  width: 200px;
+}
