@@ -1,0 +1,35 @@
+@font-face {
+  font-family: 'GothamBold';
+  src: url('../../dist/Gotham-Font/GothamBold.ttf') format('truetype');
+}
+
+#dashboard-container {
+  align-items: center;
+  background: linear-gradient(#b62020, 25%, black);
+  display: flex;
+  flex-direction: column;
+  height:100%;
+  width: 100%;
+}
+
+#dashboard-btns-container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 30%;
+  justify-content: space-between;
+  margin-top: 50px;
+  width: 95%;
+}
+
+.dashboard-btn {
+  background: #1DB954;
+  border: solid 2px black;
+  border-radius: 50px;
+  color: white;
+  font-family: GothamBold;
+  font-size: 12px;
+  height: 40px;
+  line-height: 50px;
+  text-align: center;
+  width: 250px;
+}
