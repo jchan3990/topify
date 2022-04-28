@@ -7,6 +7,7 @@ const cors = require('cors');
 const session = require('cookie-session');
 const csurf = require('csurf');
 const jwt = require('jsonwebtoken');
+const { json } = require("express/lib/response");
 
 const app = express();
 const router = express.Router();
@@ -48,36 +49,36 @@ app.get('/auth/login', (req, res) => {
 
 app.get('/auth/callback', async (req, res) => {
 
-    const { code } = req.query;
-    const tokenEndpoint = 'https://accounts.spotify.com/api/token'
-    const payload = client_id + ":" + client_secret;
-    const encodedPayload = new Buffer.from(payload).toString('base64');
-    
-    const response = await fetch(tokenEndpoint, {
-      method: 'POST',
-      headers: {
-        'Authorization': 'Basic ' + encodedPayload,
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
-      body: `grant_type=authorization_code&code=${code}&redirect_uri=${redirect_uri}`
-    })
-    const data = await response.json();
+  const { code } = req.query;
+  const tokenEndpoint = 'https://accounts.spotify.com/api/token'
+  const payload = client_id + ":" + client_secret;
+  const encodedPayload = new Buffer.from(payload).toString('base64');
+  
+  const response = await fetch(tokenEndpoint, {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Basic ' + encodedPayload,
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+    body: `grant_type=authorization_code&code=${code}&redirect_uri=${redirect_uri}`
+  })
+  const data = await response.json();
 
-    const errParams = new URLSearchParams({
-      error: 'invalid_token'
-    });
+  const errParams = new URLSearchParams({
+    error: 'invalid_token'
+  });
 
-    const sessionJWTObject = {
-      token: data.access_token
-    };
+  const sessionJWTObject = {
+    token: data.access_token,
+    refresh_token: data.refresh_token
+  };
 
-    req.session.jwt = jwt.sign(sessionJWTObject, jwt_secret)
-    return res.redirect('/dashboard');
-
+  req.session.jwt = jwt.sign(sessionJWTObject, jwt_secret)
+  return res.redirect('/#Dashboard');
 });
 
-app.get('/refresh_token', async (req, res) => {
+app.get('/auth/refresh_token', async (req, res) => {
 
-  const { refresh_token } = req.query;
+  const { refresh_token } = jwt.decode(req.session.jwt);
   const tokenEndpoint = 'https://accounts.spotify.com/api/token'
   const payload = client_id + ":" + client_secret;
   const encodedPayload = new Buffer.from(payload).toString('base64');
@@ -107,5 +108,43 @@ app.get('/auth/current-session', (req, res) => {
 
 app.get('/auth/logout', (req, res) => {
   req.session=null;
-  res.redirect('/');
+  return res.redirect('/');
 });
+
+app.get('/app/tracks?:time_range', async (req, res) => {
+  console.log(req.params.time_range);
+
+  const { refresh_token } = jwt.decode(req.session.jwt);
+  const tokenEndpoint = 'https://accounts.spotify.com/api/token'
+  const payload = client_id + ":" + client_secret;
+  const encodedPayload = new Buffer.from(payload).toString('base64');
+  
+  const response = await fetch(tokenEndpoint, {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Basic ' + encodedPayload,
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+    body: `grant_type=refresh_token&refresh_token=${refresh_token}`
+  })
+  const data = await response.json();
+
+  const { access_token } = data;
+
+  const query_params = new URLSearchParams({
+    limit: 10,
+    time_range: 'medium_term'
+  })
+
+  const t_response = await fetch('https://api.spotify.com/v1/me/top/tracks?' + query_params.toString(), {
+    method: 'GET',
+    headers: {
+      'Authorization': 'Bearer ' + access_token,
+      'Content-Type': 'application/json'
+    }
+  })
+  
+  const t_data = await t_response.json();
+  const tracks = (t_data.items);
+  res.send(tracks)
+
+})
