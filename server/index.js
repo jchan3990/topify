@@ -112,7 +112,7 @@ app.get('/auth/logout', (req, res) => {
 });
 
 app.get('/app/tracks?:time_range', async (req, res) => {
-  console.log(req.params.time_range);
+  const { time_range } = req.query
 
   const { refresh_token } = jwt.decode(req.session.jwt);
   const tokenEndpoint = 'https://accounts.spotify.com/api/token'
@@ -132,7 +132,7 @@ app.get('/app/tracks?:time_range', async (req, res) => {
 
   const query_params = new URLSearchParams({
     limit: 10,
-    time_range: 'medium_term'
+    time_range: time_range
   })
 
   const t_response = await fetch('https://api.spotify.com/v1/me/top/tracks?' + query_params.toString(), {
