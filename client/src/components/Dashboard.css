@@ -15,7 +15,7 @@
 #dashboard-btns-container {
   display: flex;
   flex-wrap: wrap;
-  height: 30%;
+  height: 15%;
   justify-content: space-between;
   margin-top: 50px;
   width: 95%;

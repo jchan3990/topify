@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
+import 'regenerator-runtime/runtime';
 
 import './Dashboard.css';
 
-import TopBar from './TopBar.jsx'
+import TopBar from './TopBar.jsx';
+import Receipt from './Receipt.jsx';
 
 const Dashboard = () => {
   const [receipt, setReceipt] = useState(0);
   const [tracks, setTracks] = useState([]);
 
-  const fetchTracks = (span) => {
-    fetch(`/app/tracks?time_range=${span}`)
-      .then(response => {console.log(response)})
+  const fetchTracks = async (span) => {
+    const response = await fetch(`/app/tracks?time_range=${span}`)
+    const data = await response.json();
+    setTracks(data);
+    setReceipt(1);
   }
 
   return (
@@ -27,6 +31,11 @@ const Dashboard = () => {
           Top 10 tracks (All Time)
         </div>
       </div>
+      {receipt && tracks.length > 0 ? (
+       <Receipt tracks={tracks} />
+      ) : (
+        null
+      )}
     </div>
   )
 }
